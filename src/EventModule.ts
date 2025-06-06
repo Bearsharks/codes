@@ -14,7 +14,7 @@ export interface EventMap {
  * @returns void
  */
 export function emit<M extends EventMap, K extends keyof M>(eventKey: K, payload: M[K]): void {
-  // 브라우저 커스텀 이벤트 리스너 활용하지만, 다른 라이브러리 등으로 새롭게 구현하는 것을 추천천
+  // Uses browser custom event listener, but consider implementing with another library for production
   const event = new CustomEvent<M[K]>(String(eventKey), {
     detail: payload,
   })
@@ -35,7 +35,7 @@ export function useEventListener<M extends EventMap, K extends keyof M>(
   handler: (payload: M[K]) => void,
   options?: boolean | AddEventListenerOptions
 ) {
-  // 내부 구현은 다른 라이브러리 등으로 새롭게 구현하는 것 추천
+  // The internal implementation can be replaced with another library if needed
   const handlerRef = useRef<(payload: M[K]) => void>(handler)
 
   useEffect(() => {
